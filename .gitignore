@@ -1,3 +1,6 @@
 build/
+
 *.swp
+
 node_modules/
+*.log
