@@ -5,7 +5,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         webpack: {
-            build: {
+            compile: {
                 // webpack options
                 entry: "./src/index.js",
                 output: {
@@ -60,5 +60,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-webpack');
 
     // Default task(s).
-    grunt.registerTask('default', ['build']);
+    grunt.registerTask('default', ['webpack']);
 };
