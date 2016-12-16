@@ -50,7 +50,6 @@ export default class OperatorNode {
         return this._rightBracket;
     };
 
-
     set right(val) {
 
         this._right = val;
