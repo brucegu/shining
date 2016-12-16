@@ -3,11 +3,6 @@ import LeafNode from "./leafnode.js";
 
 export default class Shining {
 
-    constructor(expression) {
-
-        this.expression = expression;
-    };
-
     static get operators() {
 
         return ['+', '-', '*', '/'];
@@ -18,17 +13,17 @@ export default class Shining {
         return {'+' : 5, '-' : 5, '*' : 10, '/' : 10};
     };
 
-    parse() {
+    static parse(expression) {
 
         var operatorList = [];
         var bl = '1';
         var isOperand = false;
-        for (var i = 0; i < this.expression.length; i++) {
+        for (var i = 0; i < expression.length; i++) {
 
             var preCh = '';
-            var ch = this.expression[i];
+            var ch = expression[i];
             if (i > 0) {
-                preCh = this.expression[i - 1];
+                preCh = expression[i - 1];
                 if (preCh === '?' && ch === '?') {
                     if (isOperand) {
                         isOperand = false;
@@ -46,7 +41,7 @@ export default class Shining {
             }
         }
         var maxLevel = Shining.getMaxLevel(operatorList);
-        var result = Shining.generateBT(this.expression, operatorList, maxLevel, 0, this.expression.length - 1);
+        var result = Shining.generateBT(expression, operatorList, maxLevel, 0, expression.length - 1);
         return result;
     };
 

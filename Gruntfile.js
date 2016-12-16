@@ -5,12 +5,12 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         webpack: {
-            compile: {
+            tests: {
                 // webpack options
-                entry: "./src/index.js",
+                entry: "./tests/cases.js",
                 output: {
-                    path: "./build/",
-                    filename: "index.min.js",
+                    path: "./build/tests",
+                    filename: "cases.js",
                 },
 
                 module: {
@@ -55,10 +55,24 @@ module.exports = function(grunt) {
                 hot: false, // adds the HotModuleReplacementPlugin and switch the server to hot mode
                 // Use this in combination with the inline option
             }
+        },
+
+        mochaTest: {
+            test: {
+                options: {
+                    reporter: 'spec',
+                    captureFile: 'mocha_result.txt', // Optionally capture the reporter output to a file
+                    quiet: false, // Optionally suppress output to standard out (defaults to false)
+                    clearRequireCache: false, // Optionally clear the require cache before running tests (defaults to false)
+                    noFail: false // Optionally set to not fail on failed tests (will still fail on other errors)
+                },
+                src: ['./build/tests/cases.js']
+            }
         }
     });
+    grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-webpack');
-
     // Default task(s).
     grunt.registerTask('default', ['webpack']);
+    grunt.registerTask('dev', ['webpack', 'mochaTest']);
 };
