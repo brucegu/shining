@@ -34,5 +34,4 @@ describe('Shining', function() {
         assert(result.right.left.val === 'b', "left leaf should be 'b'! ");
         assert(result.right.right.val === 'c', "right leaf should be 'c'! ");
     });
-
 });
