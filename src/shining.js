@@ -31,8 +31,8 @@ export default class Shining {
                 operatorList.push(operator);
             }
         }
-        var maxLevel = Shining.getMaxLevel(operatorList);
-        var result = Shining.generateBT(expression, operatorList, maxLevel, 0, expression.length - 1);
+        let maxLevel = Shining.getMaxLevel(operatorList);
+        let result = Shining.generateBT(expression, operatorList, maxLevel, 0, expression.length - 1);
         return result;
     };
 
@@ -40,17 +40,17 @@ export default class Shining {
 
         if (operatorList.length == 0) return new LeafNode(expression.substring(start, end + 1));
 
-        var rootOperator = Shining.getRootOperatorNode(operatorList, level);
-        var index = operatorList.indexOf(rootOperator);
-        var leftOperatorList = operatorList.slice(0, index);
-        var rightOperatorList = operatorList.slice(index + 1);
-        var left;
-        var leftBracket = false;
-        var right;
-        var rightBracket = false;
+        let rootOperator = Shining.getRootOperatorNode(operatorList, level);
+        let index = operatorList.indexOf(rootOperator);
+        let leftOperatorList = operatorList.slice(0, index);
+        let rightOperatorList = operatorList.slice(index + 1);
+        let left;
+        let leftBracket = false;
+        let right;
+        let rightBracket = false;
 
         if (leftOperatorList.length > 0) {
-            var leftMaxLevel = Shining.getMaxLevel(leftOperatorList);
+            let leftMaxLevel = Shining.getMaxLevel(leftOperatorList);
             left = Shining.generateBT(expression, leftOperatorList, leftMaxLevel, start, rootOperator.index - 1);
 
             if (left.operator !== undefined) {
@@ -59,15 +59,15 @@ export default class Shining {
                 }
             }
         } else {
-            var leftVal = expression.substring(start, rootOperator.index);
+            let leftVal = expression.substring(start, rootOperator.index);
             left = new LeafNode(leftVal);
         }
 
         if (rightOperatorList.length > 0) {
-            var rightMaxLevel = Shining.getMaxLevel(rightOperatorList);
+            let rightMaxLevel = Shining.getMaxLevel(rightOperatorList);
             right = Shining.generateBT(expression, rightOperatorList, rightMaxLevel, rootOperator.index + 1, end);
         } else {
-            var rightVal = expression.substring(rootOperator.index + 1, end + 1);
+            let rightVal = expression.substring(rootOperator.index + 1, end + 1);
             right = new LeafNode(rightVal);
         }
 
@@ -75,20 +75,20 @@ export default class Shining {
             rightBracket = true;
         }
 
-        var tree = new OperatorNode(left, leftBracket, rootOperator.operator, right, rightBracket);
+        let tree = new OperatorNode(left, leftBracket, rootOperator.operator, right, rightBracket);
         return tree;
     };
 
     static getRootOperatorNode(operatorList, level) {
 
-        var operators = [];
-        for (var i in operatorList) {
+        let operators = [];
+        for (let i in operatorList) {
             if (operatorList[i].level === level) operators.push(operatorList[i]);
         }
-        var rootIndex = operators.length - 1;
-        var prio = Shining.priorities[operators[rootIndex].operator];
-        for (var j = operators.length - 1; j >= 0; j--) {
-            var p = Shining.priorities[operators[j].operator];
+        let rootIndex = operators.length - 1;
+        let prio = Shining.priorities[operators[rootIndex].operator];
+        for (let j = operators.length - 1; j >= 0; j--) {
+            let p = Shining.priorities[operators[j].operator];
             if (p < prio) {
                 rootIndex = j;
                 prio = p;
@@ -99,8 +99,8 @@ export default class Shining {
 
     static getMaxLevel(operatorList) {
 
-        var max = {};
-        for (var i in operatorList) {
+        let max = {};
+        for (let i in operatorList) {
             if (max.level === undefined) max = operatorList[i];
             if (max.level > operatorList[i].level) max = operatorList[i];
         }

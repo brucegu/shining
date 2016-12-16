@@ -1,7 +1,5 @@
 build/
-build/tests/
 mocha_*.*
 *.swp
-
 node_modules/
 *.log

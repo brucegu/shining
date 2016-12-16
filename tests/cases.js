@@ -1,12 +1,12 @@
-import shining from "../src/shining.js"
+import shining from "../src/shining.js";
 
-var assert = require('assert');
+let assert = require('assert');
 
 describe('Shining', function() {
 
     it('Case: a + b * c', function() {
 
-        var result = shining.parse("a+b*c");
+        let result = shining.parse("a+b*c");
         assert(result.operator === '+', "root operator should be '+'! ");
         assert(result.left.val === 'a', "left node should be 'a'! ");
         assert(result.right.operator === '*', "right operator should be '*'! ");
@@ -16,7 +16,7 @@ describe('Shining', function() {
 
     it('Case: (a + b) * c', function() {
 
-        var result = shining.parse("(a+b)*c");
+        let result = shining.parse("(a+b)*c");
         assert(result.operator === '*', "root operator should be '*'! ");
         assert(result.leftBracket === true, "left part should be in bracket");
         assert(result.right.val === 'c', "left node should be 'c'! ");
@@ -27,7 +27,7 @@ describe('Shining', function() {
 
     it('Case: "a bc" + "b" * "c"', function() {
 
-        var result = shining.parse("\"a bc\"+\"b\"*\"c\"");
+        let result = shining.parse("\"a bc\"+\"b\"*\"c\"");
         assert(result.operator === '+', "root operator should be '+'! ");
         assert(result.left.val === 'a bc', "left node should be 'a bc'! ");
         assert(result.right.operator === '*', "right operator should be '*'! ");
