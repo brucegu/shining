@@ -15,28 +15,19 @@ export default class Shining {
 
     static parse(expression) {
 
-        var operatorList = [];
-        var bl = '1';
-        var isOperand = false;
-        for (var i = 0; i < expression.length; i++) {
+        let operatorList = [];
+        let bl = '1';
+        let isOperand = false;
+        for (let i = 0; i < expression.length; i++) {
 
-            var preCh = '';
-            var ch = expression[i];
-            if (i > 0) {
-                preCh = expression[i - 1];
-                if (preCh === '?' && ch === '?') {
-                    if (isOperand) {
-                        isOperand = false;
-                    } else {
-                        isOperand = true;
-                    }
-                }
-                if (isOperand) continue;
-            }
+            let ch = expression[i];
+            if (ch === '"') isOperand = !isOperand;
+            if (isOperand) continue;
+
             if (ch == '(') bl = bl + '.1';
             if (ch == ')') bl = bl.substr(0, bl.length - 2);
             if (Shining.operators.indexOf(ch) >= 0) {
-                var operator = { level: bl, operator: ch, index: i };
+                let operator = { level: bl, operator: ch, index: i };
                 operatorList.push(operator);
             }
         }
