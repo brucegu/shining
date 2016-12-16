@@ -32,11 +32,11 @@ export default class Shining {
             }
         }
         let maxLevel = Shining.getMaxLevel(operatorList);
-        let result = Shining.generateBT(expression, operatorList, maxLevel, 0, expression.length - 1);
+        let result = Shining.parseNode(expression, operatorList, maxLevel, 0, expression.length - 1);
         return result;
     };
 
-    static generateBT(expression, operatorList, level, start, end) {
+    static parseNode(expression, operatorList, level, start, end) {
 
         if (operatorList.length == 0) return new LeafNode(expression.substring(start, end + 1));
 
@@ -51,7 +51,7 @@ export default class Shining {
 
         if (leftOperatorList.length > 0) {
             let leftMaxLevel = Shining.getMaxLevel(leftOperatorList);
-            left = Shining.generateBT(expression, leftOperatorList, leftMaxLevel, start, rootOperator.index - 1);
+            left = Shining.parseNode(expression, leftOperatorList, leftMaxLevel, start, rootOperator.index - 1);
 
             if (left.operator !== undefined) {
                 if (Shining.priorities[rootOperator.operator] > Shining.priorities[left.operator] || level < leftMaxLevel) {
@@ -65,7 +65,7 @@ export default class Shining {
 
         if (rightOperatorList.length > 0) {
             let rightMaxLevel = Shining.getMaxLevel(rightOperatorList);
-            right = Shining.generateBT(expression, rightOperatorList, rightMaxLevel, rootOperator.index + 1, end);
+            right = Shining.parseNode(expression, rightOperatorList, rightMaxLevel, rootOperator.index + 1, end);
         } else {
             let rightVal = expression.substring(rootOperator.index + 1, end + 1);
             right = new LeafNode(rightVal);
