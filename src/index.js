@@ -1,4 +1,5 @@
-import circle from "./circle.js";
+import shining from "./shining.js";
 
-let cl = new circle(200);
-console.log(cl.radius);
+let result = new shining("a + b * c");
+console.log(result.parse());
+console.log(result.parse().toExpression());
