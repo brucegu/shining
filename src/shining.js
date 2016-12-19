@@ -5,15 +5,23 @@ export default class Shining {
 
     static get operators() {
 
-        return ['+', '-', '*', '/'];
+        return ['+', '-', '*', '/', '%'];
     };
 
     static get priorities() {
 
-        return {'+' : 5, '-' : 5, '*' : 10, '/' : 10};
+        return {'+' : 5, '-' : 5, '%': 20, '*' : 20, '/' : 20};
     };
 
     static parse(expression) {
+
+        let operatorList = Shining.parseOperatorLevel(expression);
+        let maxLevel = Shining.getMaxLevel(operatorList);
+        let result = Shining.parseNode(expression, operatorList, maxLevel, 0, expression.length - 1);
+        return result;
+    };
+
+    static parseOperatorLevel(expression) {
 
         let operatorList = [];
         let bl = '1';
@@ -31,10 +39,8 @@ export default class Shining {
                 operatorList.push(operator);
             }
         }
-        let maxLevel = Shining.getMaxLevel(operatorList);
-        let result = Shining.parseNode(expression, operatorList, maxLevel, 0, expression.length - 1);
-        return result;
-    };
+        return operatorList;
+    }
 
     static parseNode(expression, operatorList, level, start, end) {
 

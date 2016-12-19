@@ -34,4 +34,13 @@ describe('Shining', function() {
         assert(result.right.left.val === 'b', "left leaf should be 'b'! ");
         assert(result.right.right.val === 'c', "right leaf should be 'c'! ");
     });
+
+    it('Case: a % b * c', function() {
+        let result = shining.parse("a%b*c");
+        assert(result.operator === '*', "root operator should be '+'! ");
+        assert(result.right.val === 'c', "right node should be 'c'! ");
+        assert(result.left.operator === '%', "left operator should be '%'! ");
+        assert(result.left.left.val === 'a', "left leaf should be 'a'! ");
+        assert(result.left.right.val === 'b', "right leaf should be 'b'! ");
+    });
 });

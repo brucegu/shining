@@ -1,9 +1,7 @@
 export default class LeafNode {
 
     constructor(val) {
-        this.val = val.replace(/^\s*/g, '').replace(/\s*$/g, '')
-                        .replace(/^[(|)]*/g, '').replace(/[(|)]*$/g, '')
-                        .replace(/^"*/g, '').replace(/"*$/g, '');
+        this.val = val.replace(/^[(|)|\s|"]*/g, '').replace(/[(|)|\s|"]*$/g, '');
     };
 
     set val(v) {
