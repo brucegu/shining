@@ -1,10 +1,12 @@
-import {LeafNode, OperatorNode} from "./nodes.js";
+import { LeafNode, OperatorNode } from "./nodes.js";
 
 export default class Shining {
 
     static get operators() {
 
-        if (this._operators === undefined) this._operators = Object.keys(Shining.priorities);
+        if (this._operators === undefined) 
+            this._operators = Object.keys(Shining.priorities);
+
         return this._operators;
     };
 
@@ -17,8 +19,7 @@ export default class Shining {
 
         let operatorLevels = Shining.parseOperatorLevel(expression);
         let maxLevel = Shining.getMaxLevel(operatorLevels);
-        let result = Shining.parseNode(expression, operatorLevels, maxLevel, 0, expression.length - 1);
-        return result;
+        return Shining.parseNode(expression, operatorLevels, maxLevel, 0, expression.length - 1);
     };
 
     static parseOperatorLevel(expression) {
@@ -44,7 +45,8 @@ export default class Shining {
 
     static parseNode(expression, operatorLevels, level, start, end) {
 
-        if (operatorLevels.length === 0) return new LeafNode(expression.substring(start, end + 1));
+        if (operatorLevels.length === 0) 
+            return new LeafNode(expression.substring(start, end + 1));
 
         let rootOperator = Shining.getRootOperatorNode(operatorLevels, level);
         let rootIndex = operatorLevels.indexOf(rootOperator);
@@ -62,8 +64,7 @@ export default class Shining {
         let rightBracket = right instanceof OperatorNode && 
                                 Shining.priorities[rootOperator.operator] >= Shining.priorities[right.operator];
 
-        let tree = new OperatorNode(left, leftBracket, rootOperator.operator, right, rightBracket);
-        return tree;
+        return new OperatorNode(left, leftBracket, rootOperator.operator, right, rightBracket);
     };
 
     static getRootOperatorNode(operatorLevels, level) {

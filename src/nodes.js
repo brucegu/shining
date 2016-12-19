@@ -1,7 +1,8 @@
 export class LeafNode {
 
     constructor(val) {
-        this.val = val.replace(/^[(|)|\s|"]*/g, '').replace(/[(|)|\s|"]*$/g, '');
+        this.val = val.replace(/^[(|)|\s|"]*/g, '')
+                        .replace(/[(|)|\s|"]*$/g, '');
     };
 
     set val(v) {
@@ -83,18 +84,12 @@ export class OperatorNode {
     };
 
     toExpression() {
-        var result = '';
         var left = this.left.toExpression();
-        var right = this.right.toExpression();
-
         if (this.leftBracket) left = '(' + left + ')';
-        result += left;
 
-        result += this.operator;
-
+        var right = this.right.toExpression();
         if (this.rightBracket) right = '(' + right + ')';
-        result += right;
 
-        return result;
+        return left + this.operator + right;
     };
 }
