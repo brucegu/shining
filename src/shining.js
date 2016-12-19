@@ -5,7 +5,8 @@ export default class Shining {
 
     static get operators() {
 
-        return ['+', '-', '*', '/', '%'];
+        if (this._operators === undefined) this._operators = Object.keys(Shining.priorities);
+        return this._operators;
     };
 
     static get priorities() {
@@ -15,16 +16,16 @@ export default class Shining {
 
     static parse(expression) {
 
-        let operatorList = Shining.parseOperatorLevel(expression);
-        let maxLevel = Shining.getMaxLevel(operatorList);
-        let result = Shining.parseNode(expression, operatorList, maxLevel, 0, expression.length - 1);
+        let operatorLevels = Shining.parseOperatorLevel(expression);
+        let maxLevel = Shining.getMaxLevel(operatorLevels);
+        let result = Shining.parseNode(expression, operatorLevels, maxLevel, 0, expression.length - 1);
         return result;
     };
 
     static parseOperatorLevel(expression) {
 
-        let operatorList = [];
-        let bl = '1';
+        let operatorLevels = [];
+        let bl = 0;
         let isOperand = false;
         for (let i = 0; i < expression.length; i++) {
 
@@ -32,14 +33,14 @@ export default class Shining {
             if (ch === '"') isOperand = !isOperand;
             if (isOperand) continue;
 
-            if (ch == '(') bl = bl + '.1';
-            if (ch == ')') bl = bl.substr(0, bl.length - 2);
+            if (ch === '(') bl++;
+            if (ch === ')') bl--; 
             if (Shining.operators.indexOf(ch) >= 0) {
                 let operator = { level: bl, operator: ch, index: i };
-                operatorList.push(operator);
+                operatorLevels.push(operator);
             }
         }
-        return operatorList;
+        return operatorLevels;
     }
 
     static parseNode(expression, operatorList, level, start, end) {
@@ -87,28 +88,22 @@ export default class Shining {
 
     static getRootOperatorNode(operatorList, level) {
 
-        let operators = [];
-        for (let i in operatorList) {
-            if (operatorList[i].level === level) operators.push(operatorList[i]);
+        let result = operatorList[operatorList.length - 1];
+        for (let op of operatorList) {
+
+            if (op.level !== level) continue;
+            if (Shining.priorities[result.operator] > Shining.priorities[op.operator]) result = op;
         }
-        let rootIndex = operators.length - 1;
-        let prio = Shining.priorities[operators[rootIndex].operator];
-        for (let j = operators.length - 1; j >= 0; j--) {
-            let p = Shining.priorities[operators[j].operator];
-            if (p < prio) {
-                rootIndex = j;
-                prio = p;
-            }
-        }
-        return operators[rootIndex];
+        return result;
     };
 
     static getMaxLevel(operatorList) {
 
-        let max = {};
-        for (let i in operatorList) {
-            if (max.level === undefined) max = operatorList[i];
-            if (max.level > operatorList[i].level) max = operatorList[i];
+        let max = null;
+        for (let op of operatorList) {
+
+            if (max === null) max = op;
+            if (max.level > op.level) max = op;
         }
         return max.level;
     };
