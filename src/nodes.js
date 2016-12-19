@@ -1,4 +1,26 @@
-export default class OperatorNode {
+export class LeafNode {
+
+    constructor(val) {
+        this.val = val.replace(/^[(|)|\s|"]*/g, '').replace(/[(|)|\s|"]*$/g, '');
+    };
+
+    set val(v) {
+
+        this._val = v;
+    };
+
+    get val() {
+
+        return this._val; 
+    };
+
+    toExpression() {
+
+        return this.val;
+    };
+}
+
+export class OperatorNode {
 
     constructor(left, leftBracket, operator, right, rightBracket) {
         this.left = left;
