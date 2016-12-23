@@ -1,4 +1,4 @@
-export class LeafNode {
+class Node {
 
     constructor(val) {
         this.val = val.replace(/^[(|)|\s|"]*/g, '')
@@ -15,32 +15,32 @@ export class LeafNode {
         return this._val; 
     };
 
+}
+
+export class LeafNode extends Node {
+
+    constructor(val) {
+
+        super(val);
+    }
+
     toExpression() {
 
         return this.val;
     };
 }
 
-export class OperatorNode {
+export class OperatorNode extends Node {
 
     constructor(left, leftBracket, operator, right, rightBracket) {
+
+        super(operator);
         this.left = left;
         this.left.parent = this;
         this.leftBracket = leftBracket;
-        this.operator = operator;
         this.right = right;
         this.right.parent = this;
         this.rightBracket = rightBracket;
-    };
-
-    set operator(val) {
-
-        this._operator = val;
-    };
-
-    get operator() {
-
-        return this._operator;
     };
 
     set leftBracket(val) {
