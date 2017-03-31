@@ -74,5 +74,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-webpack');
     // Default task(s).
     grunt.registerTask('default', ['webpack']);
+    grunt.registerTask('build', ['webpack']);
     grunt.registerTask('dev', ['webpack', 'mochaTest']);
+    grunt.registerTask('test', ['mochaTest']);
 };
