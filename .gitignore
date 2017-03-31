@@ -3,3 +3,4 @@ mocha_*.*
 *.swp
 node_modules/
 *.log
+.DS_Store
