@@ -1,6 +1,6 @@
 # shining
 
-## description
+## introduction
 parse expression to binary tree, example: a * b + c will be parsed.
 
 	        (+)
@@ -9,7 +9,7 @@ parse expression to binary tree, example: a * b + c will be parsed.
 	   /   \
 	 (a)   (b)
 
-## sample:
+## example:
 
     import shining from "../src/shining.js";
     let result = shining.parse("a*b+c");
