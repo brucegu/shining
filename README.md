@@ -16,8 +16,8 @@ parse expression to binary tree, example: a * b + c will be parsed.
 
 ## build guide
 
-build : grunt
+grunt for build : grunt build
 
-build for dev: grunt dev
+grunt for dev build: grunt dev
 
-build for test: grunt mochaTest
+grunt for run test: grunt test
