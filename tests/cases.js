@@ -36,6 +36,7 @@ describe('Shining', function() {
     });
 
     it('Case: a % b * c', function() {
+
         let result = shining.parse("a%b*c");
         assert(result.val === '*', "root operator should be '+'! ");
         assert(result.right.val === 'c', "right node should be 'c'! ");

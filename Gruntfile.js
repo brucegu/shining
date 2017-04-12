@@ -1,5 +1,5 @@
-const webpackProdConfig = require('./webpack.base.js');
-//const webpackDevConfig = require('./webpack.dev.config');
+const webpackProdConfig = require('./webpack.prod.js');
+const webpackDevConfig = require('./webpack.dev.js');
 
 module.exports = function(grunt) {
 
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
             stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development'
           },
           prod: webpackProdConfig,
-          dev: webpackProdConfig
+          dev: webpackDevConfig
         },
 
         mochaTest: {
@@ -27,6 +27,7 @@ module.exports = function(grunt) {
             }
         }
     });
+
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-webpack');
 
